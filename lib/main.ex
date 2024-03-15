@@ -4,11 +4,14 @@ defmodule FtTuring do
 
   def main(args \\ []) do
 
+
     case check_valid_args(args) do
       {:help} ->
         IO.puts("help")
+        exit(:normal)
       {:error} ->
         IO.puts("error")
+        System.halt(1)
       _ ->
         :done
     end
@@ -21,11 +24,6 @@ defmodule FtTuring do
       {:error} ->
         IO.puts("bad json")
     end
-
-    #args
-    #|> check_valid_args()
-    #|> response()
-    #|> IO.puts()
 
   end
 
