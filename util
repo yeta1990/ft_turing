@@ -1,0 +1,6 @@
+
+run elixir or:
+		docker run -v .:/home --user $(id -u):$(id -g) -w /home -it --rm elixir bash
+
+mix escript.build && ./ft_turing
+
