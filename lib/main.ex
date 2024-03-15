@@ -1,9 +1,30 @@
-defmodule FtTuring.Main do
+import JsonParser
+
+defmodule FtTuring do
+
   def main(args \\ []) do
-    IO.puts("Hello world!¡!")
-    args
-    |> check_valid_args()
-    |> response()
+
+    case check_valid_args(args) do
+      {:help} ->
+        IO.puts("help")
+      {:error} ->
+        IO.puts("error")
+      _ ->
+        :done
+    end
+
+    [filename, _instruction] = args
+
+    case parse_json(filename) do
+      {:ok} -> 
+        IO.puts("ok")
+      {:error} ->
+        IO.puts("bad json")
+    end
+
+    #args
+    #|> check_valid_args()
+    #|> response()
     #|> IO.puts()
 
   end
@@ -24,25 +45,14 @@ defmodule FtTuring.Main do
       args
       |> OptionParser.parse(aliases: [h: :help], switches: [help: :boolean])
 
-    if opts[:help], do: true, else: false
+    opts[:help]
   end
 
   defp is_expected_params(args) do
     {_, params, _} = OptionParser.parse(args, strict: [jsonfile: :string, input: :string])
     if length(params) == 2, do: true, else: false 
-    #if length(params) == 2, do: [jsonfile, input] = params, else: false 
   end
 
-  defp response({opts}) do
-    case opts do
-      :help -> 
-        IO.puts("help")
-      :ok ->
-        IO.puts("OK")
-      _ ->
-        exit("error args!!")
-    end
-  end
 end
 
 
