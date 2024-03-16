@@ -13,21 +13,30 @@ defmodule JsonParser do
     end
 
 
+    def print_array(label, array) do
+      IO.puts("#{label} : [ #{Enum.join(array, ", ")} ]")
+    end
+
 	def parse_json(filename) do 
       json_string = read_file(filename)
       case decode(json_string, [{:keys, :atoms}]) do
         {:ok, decoded} ->
-          scanright = decoded[:transitions][:scanright]
-          Enum.each(scanright, fn transition ->
-            IO.puts("Read: #{transition[:to_state]}")
-          end)
+          IO.puts("*************************************")
+          print_array("Alphabet", decoded.alphabet)
+          print_array("States", decoded.states)
+          IO.puts("Initial : #{decoded.initial}")
+          print_array("Finals", decoded.finals)
+
 
           transitions = decoded.transitions
           Enum.each(transitions, fn transition -> 
             #IO.inspect transition
-            {key, _value} = transition
-            IO.puts(key)
+            {key, value} = transition
+            Enum.each(value, fn read_step ->
+              IO.puts("(#{key}, #{read_step[:read]}) -> (#{read_step[:to_state]}, #{read_step[:write]}, #{read_step[:action]})")
+            end)
           end)
+          IO.puts("*************************************")
 
         _ ->
           IO.puts("eo")
