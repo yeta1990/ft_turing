@@ -27,7 +27,6 @@ defmodule JsonParser do
           IO.puts("Initial : #{decoded.initial}")
           print_array("Finals", decoded.finals)
 
-
           transitions = decoded.transitions
           Enum.each(transitions, fn transition -> 
             #IO.inspect transition
@@ -37,11 +36,11 @@ defmodule JsonParser do
             end)
           end)
           IO.puts("*************************************")
-
+          {:ok, decoded.initial, decoded.finals, decoded.blank, transitions}
         _ ->
-          IO.puts("eo")
+          IO.puts("error parse_json()")
       end
-	  {:ok}
+
 	end
 
 end
