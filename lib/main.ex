@@ -18,6 +18,7 @@ defmodule FtTuring do
 
     [filename, instruction] = args
 
+    instruction = instruction <> "."
     case parse_json(filename) do
       {:ok, initial_status, finals, blank, transitions} -> 
         operate(instruction, initial_status, 0, blank, transitions, finals)
@@ -35,6 +36,7 @@ defmodule FtTuring do
 
   def get_next_instruction(current_status, current_char, transitions) do
 
+    #IO.puts(current_status)
     {transition_key, transition_value} = Enum.find(transitions, fn {key, value} ->
       to_string(key) === current_status
     end)
