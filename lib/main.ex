@@ -58,6 +58,7 @@ defmodule FtTuring do
 
     if Enum.member?(finals, current_status)
     do
+      print_tape_final_status(tape)
       exit(:normal)
     else
     {to_state, write, action}= get_next_instruction(current_status, String.at(tape, index), transitions) 

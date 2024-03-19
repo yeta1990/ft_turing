@@ -22,5 +22,14 @@ defmodule Strutils do
     IO.write "]"
   end
 
+  def print_array(label, array) do
+    IO.puts("#{label} : [ #{Enum.join(array, ", ")} ]")
+  end
+
+  def print_tape_final_status(tape) do
+    IO.write "Final status -> "
+    IO.puts white_background() <>  blue() <> "[" <> tape <> "]" <> reset()
+  end
+
 end
 

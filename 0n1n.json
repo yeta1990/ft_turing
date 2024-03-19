@@ -1,5 +1,5 @@
 {
-  "name": "palindrome",
+  "name": "0n1nindrome",
   "alphabet": [
     "1",
     ".",
@@ -14,8 +14,8 @@
     "check_right_0",
     "check_right_1",
     "find_left",
-    "no_pal",
-    "pal",
+    "no_0n1n",
+    "0n1n",
     "HALT"
   ],
   "initial": "start",
@@ -25,20 +25,20 @@
   "transitions": {
     "start": [
       {
-        "read": ".",
-        "to_state": "start",
-        "write": ".",
-        "action": "RIGHT"
-      },
-      {
         "read": "1",
-        "to_state": "find_right_1",
+        "to_state": "find_right_0",
         "write": ".",
         "action": "RIGHT"
       },
       {
         "read": "0",
-        "to_state": "find_right_0",
+        "to_state": "find_right_1",
+        "write": ".",
+        "action": "RIGHT"
+      },
+      {
+        "read": ".",
+        "to_state": "start",
         "write": ".",
         "action": "RIGHT"
       }
@@ -46,19 +46,19 @@
     "left_char": [
       {
         "read": "1",
-        "to_state": "find_right_1",
-        "write": ".",
-        "action": "RIGHT"
-      },
-      {
-        "read": "0",
         "to_state": "find_right_0",
         "write": ".",
         "action": "RIGHT"
       },
       {
+        "read": "0",
+        "to_state": "find_right_1",
+        "write": ".",
+        "action": "RIGHT"
+      },
+      {
         "read": ".",
-        "to_state": "pal",
+        "to_state": "0n1n",
         "write": ".",
         "action": "RIGHT"
       }
@@ -112,13 +112,13 @@
       },
       {
         "read": "0",
-        "to_state": "no_pal",
+        "to_state": "no_0n1n",
         "write": "0",
         "action": "RIGHT"
       },
       {
         "read": ".",
-        "to_state": "no_pal",
+        "to_state": "no_0n1n",
         "write": ".",
         "action": "RIGHT"
       }
@@ -132,13 +132,13 @@
       },
       {
         "read": "1",
-        "to_state": "no_pal",
+        "to_state": "no_0n1n",
         "write": "1",
         "action": "RIGHT"
       },
       {
         "read": ".",
-        "to_state": "no_pal",
+        "to_state": "no_0n1n",
         "write": ".",
         "action": "RIGHT"
       }
@@ -163,7 +163,7 @@
         "action": "RIGHT"
       }
     ],
-    "pal": [
+    "0n1n": [
       {
         "read": ".",
         "to_state": "HALT",
@@ -171,7 +171,7 @@
         "action": "RIGHT"
       }
     ],
-    "no_pal": [
+    "no_0n1n": [
       {
         "read": ".",
         "to_state": "HALT",

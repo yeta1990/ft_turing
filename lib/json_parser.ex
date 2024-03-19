@@ -1,4 +1,5 @@
 import Jason
+import Strutils
 
 defmodule JsonParser do
 
@@ -13,9 +14,6 @@ defmodule JsonParser do
     end
 
 
-    def print_array(label, array) do
-      IO.puts("#{label} : [ #{Enum.join(array, ", ")} ]")
-    end
 
 	def parse_json(filename) do 
       json_string = read_file(filename)
@@ -23,6 +21,7 @@ defmodule JsonParser do
         {:ok, decoded} ->
           IO.puts("*************************************")
           print_array("Alphabet", decoded.alphabet)
+          IO.puts "Blank character : " <> decoded.blank
           print_array("States", decoded.states)
           IO.puts("Initial : #{decoded.initial}")
           print_array("Finals", decoded.finals)
