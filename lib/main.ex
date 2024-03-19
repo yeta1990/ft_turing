@@ -1,9 +1,9 @@
 import JsonParser
+import Strutils
 
 defmodule FtTuring do
 
   def main(args \\ []) do
-
 
     case check_valid_args(args) do
       {:help} ->
@@ -28,22 +28,19 @@ defmodule FtTuring do
 
   end
 
-  def replace_char_in_strpos(str, pos, new_char) do
-    String.to_charlist(str)
-      |> List.replace_at(pos, new_char)
-      |> List.to_string
-  end
-
   def get_next_instruction(current_status, current_char, transitions) do
 
-    #IO.puts(current_status)
-    {transition_key, transition_value} = Enum.find(transitions, fn {key, value} ->
+    {_, transition_value} = Enum.find(transitions, fn {key, _} ->
       to_string(key) === current_status
     end)
 
     next_transition = Enum.find(transition_value, fn read_step ->
        read_step[:read] == current_char
     end)
+    if is_nil(next_transition) do
+      IO.puts IO.ANSI.red() <> "Bad input!! No solution" <> IO.ANSI.reset()
+      System.halt(1)
+    end
     {next_transition.to_state, next_transition.write, next_transition.action}
 
   end
@@ -57,24 +54,27 @@ defmodule FtTuring do
     end
   end
 
-  defp operate(instruction, current_status, index, blank, transitions, finals) do
+  defp operate(tape, current_status, index, blank, transitions, finals) do
 
     if Enum.member?(finals, current_status)
     do
       exit(:normal)
     else
-    {to_state, write, action}= get_next_instruction(current_status, String.at(instruction, index), transitions) 
-    IO.puts("(#{current_status}, #{String.at(instruction, index)}) -> (#{to_state}, #{write}, #{action})")
-    instruction_updated = replace_char_in_strpos(instruction, index, write)
-    IO.puts(instruction_updated)
+    {to_state, write, action}= get_next_instruction(current_status, String.at(tape, index), transitions) 
+    print_tape_status(tape, index)
+    IO.puts("(#{current_status}, #{String.at(tape, index)}) -> (#{to_state}, #{write}, #{action})")
+    tape_updated = replace_char_in_strpos(tape, index, write)
+    #IO.puts(tape_updated)
     get_next_position(index, action)
-    operate(instruction_updated, to_state, get_next_position(index, action), blank, transitions, finals)
+    operate(tape_updated, to_state, get_next_position(index, action), blank, transitions, finals)
     end
 
   end
 
   defp check_valid_args(args) do
     cond do
+      is_nil(args) ->
+        {:error}
       is_help_flag(args) -> 
         {:help}
       is_expected_params(args) ->
