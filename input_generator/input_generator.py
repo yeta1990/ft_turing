@@ -24,9 +24,9 @@ def remove_char_from_list(c: chr, lst: list):
 
 
 def main():
-    STATES = ['A', 'B']
+    STATES = ['A', 'B', 'Z']
     FINAL_STATE = 'Z'
-    ALPHABET = ['1', '+', '=']
+    INPUT_ALPHABET = ['1', '.', '+', '=']
     TRANSITIONS_START = '¡'
     TRANSITIONS_END= '!'
     TRANSITIONS_DESCRIPTION_SEPARATOR = '?'
@@ -35,12 +35,14 @@ def main():
     all_characters = set() 
     all_characters.update(STATES)
     all_characters.update(FINAL_STATE)
-    all_characters.update(ALPHABET)
+    all_characters.update(INPUT_ALPHABET)
     all_characters.update(TRANSITIONS_START)
     all_characters.update(TRANSITIONS_END)
     all_characters.update(TRANSITIONS_DESCRIPTION_SEPARATOR)
+    all_characters.update(['<', '>'])
+    all_characters = sorted(all_characters) #to list
 
-    all_characters = sorted(all_characters)
+    ALPHABET = all_characters
     print(all_characters)
 
     #print(list(filter(lambda a: a != '1', all_characters)))
@@ -66,7 +68,7 @@ def main():
             t = Transition(current_state, c, current_state, c, 'RIGHT')
             transition_list.append(t)
             transition_dict[current_state].append(t.to_dict())
-        t = Transition(current_state, c, f'read_input_{state}', c, 'RIGHT')
+        t = Transition(current_state, TRANSITIONS_END, f'read_input_{state}', TRANSITIONS_END, 'RIGHT')
         transition_list.append(t)
         transition_dict[current_state].append(t.to_dict())
 
@@ -90,7 +92,7 @@ def main():
                 t = Transition(current_state, c, current_state, c, 'LEFT')
                 transition_list.append(t)
                 transition_dict[current_state].append(t.to_dict())
-            t = Transition(current_state, TRANSITIONS_START, f'go_next_transition_start_{state}_{char}', c, 'RIGHT')
+            t = Transition(current_state, TRANSITIONS_START, f'go_next_transition_start_{state}_{char}', TRANSITIONS_START, 'RIGHT')
             transition_list.append(t)
             transition_dict[current_state].append(t.to_dict())
 
@@ -113,7 +115,7 @@ def main():
         for char in ALPHABET:
             current_state = f'read_transitions_start_{state}_{char}'
             transition_dict[current_state] = []
-            for read in remove_char_from_list(char, all_characters):
+            for read in remove_char_from_list(state, all_characters):
                 t = Transition(current_state, read, f'go_next_transition_start_{state}_{char}', read, 'RIGHT')
                 transition_list.append(t)
                 transition_dict[current_state].append(t.to_dict())
@@ -135,25 +137,25 @@ def main():
             transition_list.append(t)
             transition_dict[current_state].append(t.to_dict())
 
+    current_state = 'load_action_next_state'
+    transition_dict[current_state] = []
 
     for state in STATES:
-        current_state = f'load_action_next_state'
-        transition_dict[current_state] = []
         t = Transition(current_state, state, f'load_action_write__{state}', state, 'RIGHT')
         transition_list.append(t)
         transition_dict[current_state].append(t.to_dict())
 
     print("........")
     for state in STATES:
-        for char in ALPHABET:
-            current_state = f'load_action_write__{state}'
-            transition_dict[current_state] = []
+        current_state = f'load_action_write__{state}'
+        transition_dict[current_state] = []
+        for char in INPUT_ALPHABET:
             t = Transition(current_state, char, f'load_direction__{state}_{char}', char, 'RIGHT')
             transition_list.append(t)
             transition_dict[current_state].append(t.to_dict())
 
     for state in STATES:
-        for char in ALPHABET:
+        for char in INPUT_ALPHABET:
             current_state = f'load_direction__{state}_{char}'
             transition_dict[current_state] = []
             t = Transition(current_state, '<', f'exec_{state}_{char}_LEFT', char, 'RIGHT')
@@ -172,9 +174,15 @@ def main():
                     t = Transition(current_state, read, current_state, read, 'RIGHT')
                     transition_list.append(t)
                     transition_dict[current_state].append(t.to_dict())
-                t = Transition(current_state, POINTER, f'read_input_{state}', char, direction)
+                if state == FINAL_STATE:
+                    t = Transition(current_state, POINTER, FINAL_STATE, char, direction)
+                else:
+                    t = Transition(current_state, POINTER, f'read_input_{state}', char, direction)
                 transition_list.append(t)
                 transition_dict[current_state].append(t.to_dict())
+
+    t = Transition(current_state, FINAL_STATE, FINAL_STATE, char, direction)
+
                     
     import json
 
@@ -182,16 +190,17 @@ def main():
     output_json = {}
 
     output_json['name'] = 'universal'
-    output_json['alphabet'] = ['1', '.', '+', '=']
+    output_json['alphabet'] = ALPHABET
     output_json['blank'] = '.'
-    output_json['states'] = ['A', 'B', 'C', 'Z']
-    output_json['initial'] = 'A' 
+    output_json['states'] = ['find_initial', 'A', 'B', 'C', 'Z']
+    output_json['initial'] = 'find_initial' 
     output_json['finals'] = ['Z']
     output_json['transitions'] = transition_dict
 
     with open("sample.json", "w") as outfile: 
         json.dump(output_json, outfile)
 
+    print(output_json['transitions']['load_action_next_state'])
 
     #transitions_dict = {}
     #for transition in transition_list:
