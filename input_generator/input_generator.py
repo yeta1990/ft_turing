@@ -24,7 +24,7 @@ def remove_char_from_list(c: chr, lst: list):
 
 
 def main():
-    STATES = ['A', 'B', 'Z']
+    STATES = ['A', 'B', 'C', 'Z']
     FINAL_STATE = 'Z'
     INPUT_ALPHABET = ['1', '.', '+', '=']
     TRANSITIONS_START = '¡'
@@ -158,30 +158,34 @@ def main():
         for char in INPUT_ALPHABET:
             current_state = f'load_direction__{state}_{char}'
             transition_dict[current_state] = []
-            t = Transition(current_state, '<', f'exec_{state}_{char}_LEFT', char, 'RIGHT')
+            t = Transition(current_state, '<', f'exec_{state}_{char}_LEFT', '<', 'RIGHT')
             transition_list.append(t)
             transition_dict[current_state].append(t.to_dict())
-            t = Transition(current_state, '>', f'exec_{state}_{char}_RIGHT', char, 'RIGHT')
+            t = Transition(current_state, '>', f'exec_{state}_{char}_RIGHT', '>', 'RIGHT')
             transition_list.append(t)
             transition_dict[current_state].append(t.to_dict())
 
     for state in STATES:
-        for char in ALPHABET:
+        for char in INPUT_ALPHABET:
             for direction in ["LEFT", "RIGHT"]:
                 current_state = f'exec_{state}_{char}_{direction}'
                 transition_dict[current_state] = []
                 for read in remove_char_from_list(POINTER, ALPHABET):
                     t = Transition(current_state, read, current_state, read, 'RIGHT')
+                    print(current_state, t.to_dict())
                     transition_list.append(t)
                     transition_dict[current_state].append(t.to_dict())
                 if state == FINAL_STATE:
                     t = Transition(current_state, POINTER, FINAL_STATE, char, direction)
+                    print(current_state, t.to_dict())
                 else:
                     t = Transition(current_state, POINTER, f'read_input_{state}', char, direction)
+                    print(current_state, t.to_dict())
                 transition_list.append(t)
                 transition_dict[current_state].append(t.to_dict())
 
     t = Transition(current_state, FINAL_STATE, FINAL_STATE, char, direction)
+    print(current_state, t.to_dict())
 
                     
     import json

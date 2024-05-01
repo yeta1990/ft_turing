@@ -2,5 +2,9 @@
 run elixir or:
 		docker run -v .:/home --user $(id -u):$(id -g) -w /home -it --rm elixir bash
 
+mix local.hex --force
+mix deps.get
 mix escript.build && ./ft_turing
 
+
+./ft_turing input_generator/sample.json 'A¡?A1A1>?A.A.>?A+A+>?A=B.<?B1C.<?C1C1<?C+Z1<!11+1111='
