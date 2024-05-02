@@ -24,9 +24,9 @@ def remove_char_from_list(c: chr, lst: list):
 
 
 def main():
-    STATES = ['A', 'B', 'C', 'Z']
+    STATES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Z']
     FINAL_STATE = 'Z'
-    INPUT_ALPHABET = ['1', '.', '+', '=']
+    INPUT_ALPHABET = ['1', '.', '+', '=', '-', '0']
     TRANSITIONS_START = '¡'
     TRANSITIONS_END= '!'
     TRANSITIONS_DESCRIPTION_SEPARATOR = '?'

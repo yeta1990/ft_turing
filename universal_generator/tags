@@ -4,7 +4,7 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/albgarci/Documents/ft_turing/input_generator/	//
+!_TAG_PROC_CWD	/home/albgarci/Documents/ft_turing/universal_generator/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
@@ -6708,6 +6708,8 @@ check_read_character_in_transition_Z_B	sample.json	/^{"name": "universal", "alph
 check_read_character_in_transition_Z_C	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
 check_read_character_in_transition_Z_Z	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
 check_read_character_in_transition_Z_\\u00a1	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
+create_state_equivalences	encode_turing_json.py	/^def create_state_equivalences(states):$/;"	f
+encode_transition	encode_turing_json.py	/^def encode_transition(transition_current_state, transition_description, state_equivalences):$/;"	f
 exec_A_+_LEFT	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
 exec_A_+_RIGHT	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
 exec_A_._LEFT	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
@@ -6872,6 +6874,7 @@ load_direction__Z_+	sample.json	/^{"name": "universal", "alphabet": ["!", "+", "
 load_direction__Z_.	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
 load_direction__Z_1	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
 load_direction__Z_=	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	a	object:transitions
+main	encode_turing_json.py	/^def main():$/;"	f
 main	input_generator.py	/^def main():$/;"	f
 name	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	s
 read	sample.json	/^{"name": "universal", "alphabet": ["!", "+", ".", "1", "<", "=", ">", "?", "A", "B", "C", "Z", "/;"	s	object:transitions.check_read_character_in_transition_A_!.0
