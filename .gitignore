@@ -24,3 +24,6 @@ ft_turing-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+*swp
+tags

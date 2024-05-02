@@ -1,7 +1,6 @@
 import json
 import sys
 
-
 def create_state_equivalences(states):
     num_of_states = len(states) 
     encoded_states = [chr(n) for n in range(ord('A'), ord('A') + num_of_states)]
