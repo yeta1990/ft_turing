@@ -24,7 +24,7 @@ def remove_char_from_list(c: chr, lst: list):
 
 
 def main():
-    STATES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'Z']
+    STATES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'W', 'X', 'Y', 'Z']
     FINAL_STATE = 'Z'
     INPUT_ALPHABET = ['1', '.', '+', '=', '-', '0']
     TRANSITIONS_START = '¡'
@@ -43,10 +43,6 @@ def main():
     all_characters = sorted(all_characters) #to list
 
     ALPHABET = all_characters
-    print(all_characters)
-
-    #print(list(filter(lambda a: a != '1', all_characters)))
-    print(remove_char_from_list('!', all_characters))
 
     instruction = 'A¡?A1A1>?A+A1>!11+1='
     t = Transition('A', '1', 'A', '1', '>').to_dict()
@@ -175,8 +171,8 @@ def main():
                     print(current_state, t.to_dict())
                     transition_list.append(t)
                     transition_dict[current_state].append(t.to_dict())
-                if state == FINAL_STATE:
-                    t = Transition(current_state, POINTER, FINAL_STATE, char, direction)
+                if state == 'W':
+                    t = Transition(current_state, POINTER, 'W', char, direction)
                     print(current_state, t.to_dict())
                 else:
                     t = Transition(current_state, POINTER, f'read_input_{state}', char, direction)
@@ -184,9 +180,39 @@ def main():
                 transition_list.append(t)
                 transition_dict[current_state].append(t.to_dict())
 
-    t = Transition(current_state, FINAL_STATE, FINAL_STATE, char, direction)
-    print(current_state, t.to_dict())
 
+
+    ########### auto-cleaning process before HALT ###########
+
+
+    current_state = 'W'
+    transition_dict[current_state] = []
+    for read in remove_char_from_list(TRANSITIONS_END, ALPHABET):
+        t = Transition(current_state, read, current_state, read, 'LEFT')
+        transition_list.append(t)
+        transition_dict[current_state].append(t.to_dict())
+    t = Transition(current_state, TRANSITIONS_END, 'X', '.', 'LEFT')
+    transition_list.append(t)
+    transition_dict[current_state].append(t.to_dict())
+
+    current_state = 'X'
+    transition_dict[current_state] = []
+    for read in remove_char_from_list(TRANSITIONS_START, ALPHABET):
+        t = Transition(current_state, read, current_state, '.', 'LEFT')
+        transition_list.append(t)
+        transition_dict[current_state].append(t.to_dict())
+    t = Transition(current_state, TRANSITIONS_START, 'Y', '.', 'LEFT')
+    transition_list.append(t)
+    transition_dict[current_state].append(t.to_dict())
+
+    current_state = 'Y'
+    transition_dict[current_state] = []
+    for read in STATES:
+        t = Transition(current_state, read, 'Z', '.', 'RIGHT')
+        transition_list.append(t)
+        transition_dict[current_state].append(t.to_dict())
+
+ 
                     
     import json
 

@@ -1,4 +1,5 @@
 import json
+import sys
 
 
 def create_state_equivalences(states):
@@ -7,18 +8,12 @@ def create_state_equivalences(states):
     equivalences = {}
     for i, state in enumerate(states):
         if (state == 'HALT'):
-            equivalences[state] = 'Z'
+        #pseudo-halt. in the universal turing machine this drives to the
+        #'auto-cleaner' state, inn which the encoded instructions are erased
+            equivalences[state] = 'W' 
         else: 
             equivalences[state] = encoded_states[i]
     return equivalences 
-
-#"go_find": [
-#      {
-#        "read": "1",
-#        "to_state": "go_find",
-#        "write": "1",
-#        "action": "RIGHT"
-#      },
 
 
 def encode_transition(transition_current_state, transition_description, state_equivalences):
@@ -32,7 +27,12 @@ def encode_transition(transition_current_state, transition_description, state_eq
     return encoded_transition
 
 def main():
-    file = open('unary_sub.json')
+
+    if (len(sys.argv) != 2):
+        print("usage: python3 encode_turing_json.py path/unary_add.json")
+        return 1
+
+    file = open(sys.argv[1])
     data = json.load(file)
     state_equivalences = create_state_equivalences(data['states'])
 
