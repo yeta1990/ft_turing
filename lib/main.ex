@@ -3,27 +3,38 @@ import Strutils
 
 defmodule FtTuring do
 
-  def main(args \\ []) do
+  def main(args \\ []) do # \\ [] means [] by default 
 
     case check_valid_args(args) do
       {:help} ->
-        IO.puts("help")
+        IO.puts("usage: ft_turing [-h] jsonfile input")
+        IO.puts("")
+        IO.puts("positional arguments:")
+        IO.puts("    jsonfile\tjson description of the machine")
+        IO.puts("")
+        IO.puts("    input\tinput of the machine")
+        IO.puts("")
+        IO.puts("optional arguments")
+        IO.puts("    -h, --help\tshow this help message and exit")
         exit(:normal)
       {:error} ->
-        IO.puts("error")
+        IO.puts("Error: invalid arguments.")
+        IO.puts IO.ANSI.red() <> "Error: invalid arguments." <> IO.ANSI.reset()
+        IO.puts IO.ANSI.red() <> "type `./ft_turing -h` for help" <> IO.ANSI.reset()
         System.halt(1)
       _ ->
         :done
     end
 
-    [filename, instruction] = args
+    [filename, tape] = args
 
-    instruction = instruction <> "."
+    tape = tape <> "."
     case parse_json(filename) do
       {:ok, initial_status, finals, blank, transitions} -> 
-        operate(instruction, initial_status, 0, blank, transitions, finals)
+        operate(tape, initial_status, 0, blank, transitions, finals)
       {:error} ->
         IO.puts("bad json")
+        System.halt(1)
     end
 
   end
@@ -61,13 +72,12 @@ defmodule FtTuring do
       print_tape_final_status(tape)
       exit(:normal)
     else
-    {to_state, write, action}= get_next_instruction(current_status, String.at(tape, index), transitions) 
-    print_tape_status(tape, index)
-    IO.puts("(#{current_status}, #{String.at(tape, index)}) -> (#{to_state}, #{write}, #{action})")
-    tape_updated = replace_char_in_strpos(tape, index, write)
-    #IO.puts(tape_updated)
-    get_next_position(index, action)
-    operate(tape_updated, to_state, get_next_position(index, action), blank, transitions, finals)
+      {to_state, write, action}= get_next_instruction(current_status, String.at(tape, index), transitions) 
+      print_tape_status(tape, index)
+      IO.puts("(#{current_status}, #{String.at(tape, index)}) -> (#{to_state}, #{write}, #{action})")
+      tape_updated = replace_char_in_strpos(tape, index, write)
+      get_next_position(index, action)
+      operate(tape_updated, to_state, get_next_position(index, action), blank, transitions, finals)
     end
 
   end
