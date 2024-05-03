@@ -9,7 +9,7 @@
 Clone the repository:
 
 ```bash
-git clone https://github.com/your_username/ft_turing.git
+git clone https://github.com/yeta1990/ft_turing.git
 ```
 
 ## Usage
@@ -55,11 +55,36 @@ mix escript.build              # Build Escript
 ## Provided machines
 The project provides the following Turing machines in /machines folder:
 
-1. unary_add.json: Adds unary numbers.
-2. 0n1n.json
-3. palindrome.json
-4. unary_sub.json
-5. universal_machine.json (read the next steps before using it)
+1. unary_add.json: Adds unary numbers. Usage:
+```
+./ft_turing machines/unary_add.json 11+1=
+
+```
+2. 0n1n.json: decide if the input is a word of the language 0n1n. Usage:
+```
+./ft_turing machines/0n1n.json 0011
+
+```
+
+3. palindrome.json. Usage:
+```
+./ft_turing machines/palindrome.json 010
+
+```
+
+4. unary_sub.json. Substract unary numbers. Usage:
+```
+./ft_turing machines/unary_sub.json 11-1=
+
+```
+
+5. 02n.json. Decide if the input is a word of the language 02n. Usage:
+```
+./ft_turing machines/02n.json 0000
+
+```
+
+6. universal_machine.json (read the next steps before using it).
 
 ## Format of the json machine instructions
 
@@ -89,7 +114,7 @@ To use the universal machine, follow these steps:
 2. **Encode Machine Description**: Use the encode_turing_json.py script to encode the machine description (JSON file) into an encoded input for the universal machine.
 3. **Run Universal Machine**: Execute the ft_turing program with the generated universal machine instructions and the encoded input.
 
-Example:
+Example with unary_add instructions as the input:
 
 ```
 python universal_machine_generator.py

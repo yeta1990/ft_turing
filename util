@@ -1,6 +1,7 @@
 
-run elixir or:
-		docker run -v .:/home -w /home -it --rm elixir bash
+run elixir container:
+
+docker run -v .:/home -w /home -it --rm elixir bash
 
 mix local.hex --force
 mix deps.get
@@ -11,4 +12,7 @@ Universal_machine:
 ./ft_turing machines/universal_machine.json 'A¡?A1A1>?A.A.>?A+A+>?A=B.<?B1C.<?C1C1<?C+W1<!11+1111='
 
 Encode machine descriptions (.json) to universal turing machine inputs
+
+python3 universal_generator/encode_turing_json.py machines/
+
 

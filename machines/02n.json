@@ -7,14 +7,12 @@
   "blank": ".",
   "states": [
     "start",
-    "left_char",
     "find_right_0",
-    "find_right_1",
+    "find_left_0",
     "check_right_0",
-    "check_right_1",
-    "find_left",
-    "no_0n1n",
-    "0n1n",
+    "check_left_0",
+    "no",
+    "yes",
     "HALT"
   ],
   "initial": "start",

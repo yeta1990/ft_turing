@@ -214,7 +214,8 @@ def main():
     output_json['name'] = 'universal'
     output_json['alphabet'] = ALPHABET
     output_json['blank'] = '.'
-    output_json['states'] = STATES + ['find_initial']
+    output_json['states'] = STATES + list(transition_dict.keys())
+    print(output_json['states'])
     output_json['initial'] = 'find_initial' 
     output_json['finals'] = ['Z']
     output_json['transitions'] = transition_dict
