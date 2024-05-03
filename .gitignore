@@ -27,3 +27,5 @@ ft_turing-*.tar
 
 *swp
 tags
+ft_turing
+mix.lock
