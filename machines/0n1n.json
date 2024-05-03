@@ -1,5 +1,5 @@
 {
-  "name": "0n1nindrome",
+  "name": "0n1n",
   "alphabet": [
     "1",
     ".",
@@ -113,7 +113,7 @@
       {
         "read": "0",
         "to_state": "no_0n1n",
-        "write": "0",
+        "write": ".",
         "action": "RIGHT"
       },
       {

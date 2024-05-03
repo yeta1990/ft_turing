@@ -23,9 +23,9 @@ def remove_char_from_list(c: chr, lst: list):
 
 
 def main():
-    STATES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'W', 'X', 'Y', 'Z']
+    STATES = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'W', 'X', 'Y', 'Z']
     FINAL_STATE = 'Z'
-    INPUT_ALPHABET = ['1', '.', '+', '=', '-', '0']
+    INPUT_ALPHABET = ['1', '.', '+', '=', '-', '0', 'y', 'n']
     TRANSITIONS_START = '¡'
     TRANSITIONS_END= '!'
     TRANSITIONS_DESCRIPTION_SEPARATOR = '?'
@@ -176,7 +176,7 @@ def main():
                     t = Transition(current_state, read, current_state, read, 'RIGHT')
                     transition_dict[current_state].append(t.to_dict())
                 if state == 'W':
-                    t = Transition(current_state, POINTER, 'W', char, direction)
+                    t = Transition(current_state, POINTER, 'W', char, 'LEFT')
                 else:
                     t = Transition(current_state, POINTER, f'read_input_{state}', char, direction)
                 transition_dict[current_state].append(t.to_dict())

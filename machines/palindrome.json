@@ -118,7 +118,7 @@
       },
       {
         "read": ".",
-        "to_state": "no_pal",
+        "to_state": "pal",
         "write": ".",
         "action": "RIGHT"
       }
@@ -138,7 +138,7 @@
       },
       {
         "read": ".",
-        "to_state": "no_pal",
+        "to_state": "pal",
         "write": ".",
         "action": "RIGHT"
       }
