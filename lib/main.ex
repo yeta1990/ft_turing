@@ -18,7 +18,6 @@ defmodule FtTuring do
         IO.puts("    -h, --help\tshow this help message and exit")
         exit(:normal)
       {:error} ->
-        IO.puts("Error: invalid arguments.")
         IO.puts IO.ANSI.red() <> "Error: invalid arguments." <> IO.ANSI.reset()
         IO.puts IO.ANSI.red() <> "type `./ft_turing -h` for help" <> IO.ANSI.reset()
         System.halt(1)
@@ -38,6 +37,7 @@ defmodule FtTuring do
     end
 
   end
+
 
   def get_next_instruction(current_status, current_char, transitions) do
 
