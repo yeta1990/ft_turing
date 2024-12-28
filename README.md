@@ -2,7 +2,7 @@
 
 ## Description
 
-`ft_turing` is a Turing machine simulator that can load instructions via a JSON file. It provides a command-line interface to interact with various Turing machines, including four "normal" machines and one universal machine. Written in Elixir
+`ft_turing` is a Turing machine simulator written in Elixir that can load instructions via a JSON file. It provides a command-line interface to interact with various Turing machines, including four "normal" machines and one universal machine. Written in Elixir
 
 ## Installation
 
